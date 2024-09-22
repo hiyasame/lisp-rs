@@ -85,8 +85,9 @@ impl Env {
                         },
                     );
                 } else {
+                    let mut env_copy = env.clone();
                     // is a variable
-                    env.assign(exps[0].expect_symbol()?.as_str(), exps[1].clone());
+                    env.assign(exps[0].expect_symbol()?.as_str(), eval(exps[1].clone(), &mut env_copy)?);
                 }
                 Ok(LispExp::List(vec![]))
             }),
